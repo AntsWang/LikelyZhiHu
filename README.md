@@ -1,2 +1,2 @@
 # LikelyZhiHu
-仿知乎日报
+知乎日报
