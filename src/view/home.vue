@@ -7,14 +7,18 @@
 			</div>
 		</swipe>
 	    <div class = "section">
-	    	<p class = "date" v-show = "false">{{Formdate}}</p>
-	    	<div class = "item" v-for="item in sectionlist" @click = "Showdetail(item.id)">
-	    		
-	    		<img :src="item.images[0]" alt="item.title" />
-	    		<p class = "title">{{item.title}}</p>
+	    	<div class = "list" v-for = "item in sectionlist">
+	    		<p class = "date" v-show = "true">{{item.date}}</p>
+	    		<div class = "item" v-for="itemd in item.stories" @click = "Showdetail(itemd.id)">
+		    		<img :src="itemd.images[0]" alt="itemd.title" />
+		    		<p class = "title">{{itemd.title}}</p>
+		    	</div>
 	    	</div>
+	    	
+	    	
 	    </div>
 	    <isloading :loading = loading></isloading>
+	    <loadmore></loadmore>
 	</div>
 	
 </template>
@@ -22,6 +26,7 @@
 <script>
 	import swiper from '../components/swiper/swiper.vue'
 	import isloading from '../components/isLoading'
+	import loadmore from '../components/loadMore'
 	import api from '../api/resource'
 	export default {
 		data:function(){
@@ -47,7 +52,8 @@
 },
 components: {
 		swipe: swiper,
-		isloading: isloading
+		isloading: isloading,
+		loadmore:loadmore
 	},
 	computed: {
 		Formdate() {
@@ -63,10 +69,8 @@ components: {
 			let that = this;
 			api.Getnews().then(function(data) {
 				that.Loademoj(false);
-				that.date = data.data.date;
 				that.toplist = data.data.top_stories;
-				that.sectionlist = data.data.stories;
-				console.log(data);
+				that.sectionlist.push(data.data);
 			}).catch(function(err) {
 				console.log(err);
 			});
@@ -90,23 +94,31 @@ components: {
 </script>
 
 <style scoped>
-   .wraper .swiper-slide{
+   	.wraper .swiper-slide {
    	position: relative;
    }
-   .swiper-slide p{
+   
+   .swiper-slide p {
    	width: 70%;
    	position: absolute;
    	top: 70%;
-   	left:30%;
+   	left: 30%;
    	color: white;
    	font-size: 16px;
    	line-height: 32px;
    	font-weight: bold;
    }
-   .section{
+   
+   .swiper-slide img {
+   	width: 100%;
+   	height: 100%;
+   }
+   
+   .section {
    	padding: 0 0.2rem;
    }
-   .section .item{
+   
+   .section .item {
    	width: 2.95rem;
    	height: 0.8rem;
    	padding: 0.1rem 0.2rem;
@@ -116,30 +128,34 @@ components: {
    	box-shadow: 0 3px 10px 0 rgba(91, 115, 146, 0.15);
    	clear: both;
    }
-   .section img{
+   
+   .section img {
    	float: left;
    	width: 0.75rem;
    	height: 0.75rem;
    	margin-right: 0.1rem;
-   	
    }
-   .section p.title{
-   	float:left;
+   
+   .section p.title {
+   	float: left;
    	width: 2rem;
    	font-size: 14px;
-   	line-height:28px ;
+   	line-height: 28px;
    	margin-top: 0.1rem;
    	text-align: justify;
-   	
    	word-break: break-all;
-    text-overflow: ellipsis;
-    display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
-    -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
-    -webkit-line-clamp: 2; /** 显示的行数 **/
-    overflow: hidden;  /** 隐藏超出的内容 **/
-   	
+   	text-overflow: ellipsis;
+   	display: -webkit-box;
+   	/** 对象作为伸缩盒子模型显示 **/
+   	-webkit-box-orient: vertical;
+   	/** 设置或检索伸缩盒对象的子元素的排列方式 **/
+   	-webkit-line-clamp: 2;
+   	/** 显示的行数 **/
+   	overflow: hidden;
+   	/** 隐藏超出的内容 **/
    }
-   .section p.date{
+   
+   .section p.date {
    	width: 45%;
    	height: 0.3rem;
    	border-radius: 0.3rem;

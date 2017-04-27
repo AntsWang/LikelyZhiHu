@@ -18,5 +18,8 @@ export default {
 	Getnewsbyid(id) {
 		return axios.get(baseurl.concat(apiZhihu.newsbyid).concat(id));
 	},
+	Getnewsbydate(date){
+		return axios.get(baseurl.concat(apiZhihu.newsbydate).concat(date));
+	}
 }
 
