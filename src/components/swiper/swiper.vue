@@ -13,28 +13,35 @@
 	name: "m-swipe",
 	data(){
 		return {
-			dom:""
-		}
+			dom:""}
+},
+mounted: function() {
+		var That = this;
+		this.$nextTick(function() {
+
+			var mySwiper = new Swiper('.swiper-container', {
+				loop: true,
+				//分页器
+				pagination: '.swiper-pagination',
+				// autoplay: That.autoplay,
+				autoplay: 1000,
+				//方向
+				direction: 'horizontal',
+				//特效
+				effect: 'slide', //slide,fade,coverflow,cube
+				autoplayDisableOnInteraction: false,
+				observer: true, //修改swiper自己或子元素时，自动初始化swiper
+				observeParents: true //修改swiper的父元素时，自动初始化swiper
+
+			});
+		})
 	},
-   mounted:function(){
-            this.$nextTick(function(){
-               
-                var mySwiper = new Swiper ('.swiper-container', {
-                    direction: 'horizontal',
-                    loop: true,
-                    autoplay:1000,
-                    pagination: '.swiper-pagination'
-                
-                });
-            })
-   },
-   computed:{
-   	Formdate() {
-   		
-   	}
-   }
-}
-</script>
+	computed: {
+		Formdate() {
+
+		}
+	}
+}</script>
 
 <style>
 @import './swiper.min.css';

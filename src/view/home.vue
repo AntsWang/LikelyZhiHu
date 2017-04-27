@@ -14,12 +14,14 @@
 	    		<p class = "title">{{item.title}}</p>
 	    	</div>
 	    </div>
+	    <isloading :loading = loading></isloading>
 	</div>
 	
 </template>
 
 <script>
 	import swiper from '../components/swiper/swiper.vue'
+	import isloading from '../components/isLoading'
 	import api from '../api/resource'
 	export default {
 		data:function(){
@@ -30,6 +32,7 @@
 			}
 		},
 		mounted:function(){
+			this.Loademoj(true);
 			this.GetData();
 		},
 		ready:function(){
@@ -39,33 +42,37 @@
                     direction: 'horizontal',
                     loop: true,
                     autoplay:1000,
-                    pagination: '.swiper-pagination'
-                
-                });
-            })
+                    pagination: '.swiper-pagination'});
+})
+},
+components: {
+		swipe: swiper,
+		isloading: isloading
+	},
+	computed: {
+		Formdate() {
+			return this.Fdate(this.date);
+		}
+	},
+	methods: {
+		Loademoj(bool) {
+			console.log(1111);
+		    this.$store.commit('Changeloading', bool);
 		},
-		components:{
-			swipe:swiper
+		GetData() {
+			let that = this;
+			api.Getnews().then(function(data) {
+				that.Loademoj(false);
+				that.date = data.data.date;
+				that.toplist = data.data.top_stories;
+				that.sectionlist = data.data.stories;
+				console.log(data);
+			}).catch(function(err) {
+				console.log(err);
+			});
 		},
-		computed:{
-			Formdate() {
-			  return this.Fdate(this.date);	
-			}
-		},
-		methods:{
-			GetData() {
-				let that = this;
-				api.Getnews().then(function(data){
-					that.date = data.data.date;
-					that.toplist = data.data.top_stories;
-					that.sectionlist = data.data.stories;
-					console.log(data);
-				}).catch(function(err){
-					console.log(err);
-				});
-			},
-			Fdate(date) {
-				let str = date.substring(0,4)+"/"+date.substring(4,6)+"/"+date.substring(6);
+		Fdate(date) {
+			let str = date.substring(0, 4) +"/"+date.substring(4,6)+"/"+date.substring(6);
 				return str;
 			},
 			Showdetail(id) {
@@ -76,6 +83,7 @@
 					console.log(err);
 				});*/
 			}
+
 		}
 		
 	}
