@@ -59,7 +59,6 @@ components: {
 	},
 	methods: {
 		Loademoj(bool) {
-			console.log(1111);
 		    this.$store.commit('Changeloading', bool);
 		},
 		GetData(date) {
@@ -76,8 +75,9 @@ components: {
 				api.Getnewsbydate(date).then(function(data){
 					that.$store.commit("Changeheight",false);
 					that.sectionlist.push(data.data);
-					console.log(data);
-				}).catch();
+				}).catch(function(err){
+					console.log(err);
+				});
 			}
 			
 		},
@@ -103,6 +103,9 @@ components: {
 </script>
 
 <style scoped>
+	.wraper{
+		
+	}
    	.wraper .swiper-slide {
    	position: relative;
    }

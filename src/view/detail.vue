@@ -41,5 +41,7 @@
 </script>
 
 <style lang="less" scoped="scoped">
-
+  .con{
+  	
+  }
 </style>

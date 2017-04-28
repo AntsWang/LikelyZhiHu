@@ -17,10 +17,10 @@
 			this.bindscroll();
 		},
 		computed:{
-			date:function(){
+			date() {
 				return new Date();
 			},
-			height:function(){
+			height() {
 				return this.$store.state.height;
 			}
 		},
@@ -32,11 +32,10 @@
 					let bodyh = document.documentElement.clientHeight;
 					let docuh = document.body.scrollHeight;
 					let minh = docuh-scrollh-bodyh;
-				  if(minh <=0){
+				  if(minh == 0){
 				  	 that.$store.commit("Changeheight",true);
 				  	 //that.GetDate(that.count);
 				  	 that.$emit("loadmore",that.GetDate(that.count++));
-				  	 console.log(that.date);
 				  }
 				})
 			},
@@ -44,6 +43,7 @@
 				
 			},
 			GetDate(count) {
+				console.log(count);
 				let time = new Date().getTime() - count * 24 * 60 * 60 * 1000;
 				let goaldate = new Date(time);
 				let year = goaldate.getFullYear();

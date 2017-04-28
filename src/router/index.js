@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/view/home'
-import menu from '@/view/menu'
+import music from '@/view/music'
+import movie from '@/view/movie'
 import detail from '@/view/detail'
 
 Vue.use(Router)
@@ -9,13 +10,18 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: home
     },{
-    	path:'/menu',
-    	name:'menu',
-    	component: menu
+    	path:'/music',
+    	name:'music',
+    	component: music
+    },
+    {
+    	path:'/movie',
+    	name:'movie',
+    	component: movie
     },
     {
     	path:'/detail/:id',
@@ -24,7 +30,7 @@ export default new Router({
     },
     {
 			path: '*',
-			redirect: '/'
+			redirect: '/home'
 		}
   ]
 })

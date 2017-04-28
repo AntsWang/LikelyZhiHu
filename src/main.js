@@ -14,7 +14,6 @@ const store = new Vuex.Store({
     },
     mutations:{
     	Changeloading(state,bool) {
-    		console.log(2222);
     		state.isloading = bool;
     	},
     	Changeheight(state,bool) {
