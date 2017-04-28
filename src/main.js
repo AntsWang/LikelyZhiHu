@@ -9,12 +9,16 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
     state:{
         loadingText:"正在加载", // 定义你的数据源
-        isloading:"false"
+        isloading:"false",
+        height:false//显示下拉加载，true显示, false隐藏
     },
     mutations:{
     	Changeloading(state,bool) {
     		console.log(2222);
     		state.isloading = bool;
+    	},
+    	Changeheight(state,bool) {
+    		state.height = bool;
     	}
     }
 })

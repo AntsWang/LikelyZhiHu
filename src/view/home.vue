@@ -8,7 +8,7 @@
 		</swipe>
 	    <div class = "section">
 	    	<div class = "list" v-for = "item in sectionlist">
-	    		<p class = "date" v-show = "true">{{item.date}}</p>
+	    		<p class = "date" v-show = "true">{{Fdate(item.date)}}</p>
 	    		<div class = "item" v-for="itemd in item.stories" @click = "Showdetail(itemd.id)">
 		    		<img :src="itemd.images[0]" alt="itemd.title" />
 		    		<p class = "title">{{itemd.title}}</p>
@@ -17,8 +17,8 @@
 	    	
 	    	
 	    </div>
-	    <isloading :loading = loading></isloading>
-	    <loadmore></loadmore>
+	    <isloading></isloading>
+	    <loadmore @loadmore = loadmore></loadmore>
 	</div>
 	
 </template>
@@ -56,24 +56,33 @@ components: {
 		loadmore:loadmore
 	},
 	computed: {
-		Formdate() {
-			return this.Fdate(this.date);
-		}
 	},
 	methods: {
 		Loademoj(bool) {
 			console.log(1111);
 		    this.$store.commit('Changeloading', bool);
 		},
-		GetData() {
+		GetData(date) {
 			let that = this;
-			api.Getnews().then(function(data) {
-				that.Loademoj(false);
-				that.toplist = data.data.top_stories;
-				that.sectionlist.push(data.data);
-			}).catch(function(err) {
-				console.log(err);
-			});
+			if(!date){
+				api.Getnews().then(function(data) {
+					that.Loademoj(false);
+					that.toplist = data.data.top_stories;
+					that.sectionlist.push(data.data);
+				}).catch(function(err) {
+					console.log(err);
+				});
+			}else{
+				api.Getnewsbydate(date).then(function(data){
+					that.$store.commit("Changeheight",false);
+					that.sectionlist.push(data.data);
+					console.log(data);
+				}).catch();
+			}
+			
+		},
+		loadmore(date) {
+			this.GetData(date);
 		},
 		Fdate(date) {
 			let str = date.substring(0, 4) +"/"+date.substring(4,6)+"/"+date.substring(6);
@@ -116,6 +125,9 @@ components: {
    
    .section {
    	padding: 0 0.2rem;
+   }
+   .section .list{
+   	margin-top: 10px;
    }
    
    .section .item {
