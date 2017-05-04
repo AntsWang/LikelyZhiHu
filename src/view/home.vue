@@ -7,7 +7,7 @@
 			</div>
 		</swipe>
 	    <div class = "section">
-	    	<div class = "list" v-for = "item in sectionlist">
+	    	<div class = "list" v-for = "item in sectionlist" v-if = "item.date">
 	    		<p class = "date" v-show = "true">{{Fdate(item.date)}}</p>
 	    		<div class = "item" v-for="itemd in item.stories" @click = "Showdetail(itemd.id)">
 		    		<img :src="itemd.images[0]" alt="itemd.title" />

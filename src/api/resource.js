@@ -21,9 +21,13 @@ export default {
 	Getnewsbydate(date){
 		return axios.get(baseurl.concat(apiZhihu.newsbydate).concat(date));
 	},
-	//电影
-	Gethot() {
-		return axios.get('https://api.douban.com/v2/movie/in_theaters?count=8');
+	//影院热映
+	Gettheater() {
+		return axios.get('api/movie/in_theaters?start=0&count=10');
+	},
+	//即将上映
+	Getcome() {
+		return axios.get('api/movie/coming_soon?start=0&count=10');
 	}
 }
 

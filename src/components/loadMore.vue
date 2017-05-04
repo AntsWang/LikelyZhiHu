@@ -34,7 +34,6 @@
 					let minh = docuh-scrollh-bodyh;
 				  if(minh == 0){
 				  	 that.$store.commit("Changeheight",true);
-				  	 //that.GetDate(that.count);
 				  	 that.$emit("loadmore",that.GetDate(that.count++));
 				  }
 				})
