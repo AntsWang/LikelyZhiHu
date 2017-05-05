@@ -3,7 +3,7 @@
   	<div class = "header">
   		<router-link to = "/home">文章</router-link>
   		<router-link to = "/music">音乐</router-link>
-  		<router-link to = "/movie">电影</router-link>
+  		<router-link to = "/movie/top">电影</router-link>
   	</div>
   	<div class = "main">
   		<keep-alive>
@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 #app .header{
 	position: fixed;
 	top: 0;

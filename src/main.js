@@ -10,7 +10,8 @@ const store = new Vuex.Store({
     state:{
         loadingText:"正在加载", // 定义你的数据源
         isloading:"false",
-        height:false//显示下拉加载，true显示, false隐藏
+        height:false,//显示正在加载，true显示, false隐藏
+        isShow:true//显示加载更多,true不显示，false显示
     },
     mutations:{
     	Changeloading(state,bool) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     	},
     	Changeheight(state,bool) {
     		state.height = bool;
+    	},
+    	Changeshow(state,bool){
+    		state.isShow = bool;
     	}
     }
 })

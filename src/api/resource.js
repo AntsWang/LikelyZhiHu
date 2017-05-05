@@ -28,6 +28,15 @@ export default {
 	//即将上映
 	Getcome() {
 		return axios.get('api/movie/coming_soon?start=0&count=10');
+	},
+	//影片搜索
+	Getsearch(params) {
+		return axios.get('api/movie/search?q='+params);
+	},
+	//电影排行榜
+	Gettop(flag) {
+		return axios.get('api/movie/top250?start='+flag+'&count=10');
 	}
+	
 }
 

@@ -14,11 +14,11 @@
 		    		<p class = "title">{{itemd.title}}</p>
 		    	</div>
 	    	</div>
-	    	
-	    	
+	    	<loadmore @loadmore = loadmore></loadmore>
+	        <isloading></isloading>
 	    </div>
-	    <isloading></isloading>
-	    <loadmore @loadmore = loadmore></loadmore>
+	    
+	    
 	</div>
 	
 </template>
@@ -33,10 +33,12 @@
 			return {
 				toplist:[],
 				sectionlist:[],
-				date:""
+				date:"",
+				count:1
 			}
 		},
 		mounted:function(){
+			this.count = 1;
 			this.Loademoj(true);
 			this.GetData();
 		},
@@ -81,8 +83,17 @@ components: {
 			}
 			
 		},
-		loadmore(date) {
-			this.GetData(date);
+		loadmore() {
+			console.log(this.count);
+			let time = new Date().getTime() - this.count * 24 * 60 * 60 * 1000;
+			let goaldate = new Date(time);
+			let year = goaldate.getFullYear();
+			let month = goaldate.getMonth()+1;
+			month = month > 9?month:"0"+month;
+			let day = goaldate.getDate();
+			let nextdate =  year+""+month+""+day;
+			this.count++;
+			this.GetData(nextdate);
 		},
 		Fdate(date) {
 			let str = date.substring(0, 4) +"/"+date.substring(4,6)+"/"+date.substring(6);

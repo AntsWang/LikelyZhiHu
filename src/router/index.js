@@ -4,6 +4,10 @@ import home from '@/view/home'
 import music from '@/view/music'
 import movie from '@/view/movie'
 import detail from '@/view/detail'
+import come from '@/view/come'
+import hot from '@/view/hot'
+import search from '@/view/search'
+import top from '@/view/top'
 
 Vue.use(Router)
 
@@ -21,7 +25,29 @@ export default new Router({
     {
     	path:'/movie',
     	name:'movie',
-    	component: movie
+    	component: movie,
+    	children:[
+            {
+            	path:'come',
+            	name:'come',
+            	component:come
+            },
+            {
+            	path:'hot',
+            	name:'hot',
+            	component:hot
+            },
+            {
+            	path:'search',
+            	name:'search',
+            	component:search
+            },
+            {
+            	path:'top',
+            	name:'top',
+            	component:top
+            }
+    	]
     },
     {
     	path:'/detail/:id',
